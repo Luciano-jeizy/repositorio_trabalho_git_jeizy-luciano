@@ -1,5 +1,4 @@
 CREATE DATABASE Joins_pii_ex6;
-
 USE Joins_pii_ex6;
 
 CREATE TABLE Cliente (
@@ -75,18 +74,18 @@ INSERT INTO estacionamento VALUES
 	(2, 1, 100),
 	(3, 2, 75);
 
-#EXERCÍCIO 1
+#EXERCÍCIO A
 SELECT Matricula, Nome
 FROM Veiculo
 JOIN Cliente 
 ON Cliente_NIF = Cliente_NIF;
 
-#EXERCÍCIO 2
+#EXERCÍCIO B
 SELECT Veiculo.Cliente_NIF
 FROM Veiculo
 WHERE Veiculo.Matricula = '21-FC-41';
 
-#Exercício 3
+#Exercício C
 
 UPDATE  Veiculo
 SET Num = 1
@@ -106,7 +105,7 @@ WHERE Matricula ='21-FC-41';
  ON Estacionamento.Num = Veiculo.Num
  WHERE  Estacionamento.Num = 1;
  
- #Exercício 4
+ #Exercício D
 ALTER TABLE veiculo
 ADD COLUMN  Ano_veiculo INT;
 
@@ -121,11 +120,64 @@ INNER JOIN estacionamento
 ON Estacionamento.Num = Veiculo.Num
 WHERE Estacionamento.Num = 1;
 
-#Exercício 5
+#Exercício E
 
-UPDATE veiculo
-SET matricula ='2024-11-02'
-WHERE Num = 3;
+SELECT dataEntrega, datasaida, veiculo.matricula
+FROM  estaciona
+LEFT JOIN veiculo
+ON  estaciona.veiculo_Matricula = veiculo.Matricula
+WHERE  veiculo.matricula= '70-20-ZH';
+
+ #Exercicio F
+ SELECT Nome
+ FROM cliente
+ INNER JOIN veiculo
+ ON cliente.NIF= veiculo.Cliente_NIF
+ WHERE veiculo.Modelo_codMod = 1;
+ 
+ 
+ 
+#Exercicio G
+SELECT Matricula,horaentrada, horasaida
+FROM estaciona
+INNER JOIN veiculo
+ON estaciona.cod = veiculo.Modelo_codMod
+WHERE veiculo.cor = "verde" AND veiculo.matricula LIKE "%S%";
+
+#Exercício H
+SELECT Nome
+FROM cliente
+LEFT JOIN veiculo
+ON Cliente.NIF = veiculo.Cliente_NIF
+WHERE veiculo.cod_estacionamento = 2;
+ 
+ALTER TABLE veiculo
+ADD COLUMN cod_estacionamento INT;
+
+#Exercicio I
+
+SELECT NIF
+FROM cliente
+INNER JOIN veiculo
+ON cliente.NIF = veiculo.Cliente_NIF
+WHERE veiculo.cod_estacionamento = 3;
+
+#Exercicio  J
+
+SELECT matricula, modelo_codMod, cliente_NIF,cor,Num,Ano_veiculo
+FROM veiculo
+INNER JOIN estaciona
+ON veiculo.matricula = estaciona.veiculo_Matricula
+WHERE veiculo.cod_estacionamento = 2;
+
+#Exercício K
+
+SELECT cliente.nome,matricula,modelo_codMod, cliente_NIF,cor,Num,Ano_veiculo
+FROM cliente
+INNER JOIN veiculo
+ON cliente.NIF = veiculo.Cliente_NIF 
+INNER JOIN modelo
+ON Modelo.codMod = veiculo.Modelo_codMod;
 
 
 
@@ -138,5 +190,3 @@ WHERE Num = 3;
 
 
  
-
-
